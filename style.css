@@ -40,14 +40,12 @@ form > button {
 form > button:hover {
     background-color: violet;
 }
-
 ul {
     list-style: none;
     width: 500px;
     margin: 2rem auto;
     padding: 0;
 }
-
 .todo-item {
     display: flex;
     gap: 1rem;

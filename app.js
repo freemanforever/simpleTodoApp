@@ -5,11 +5,9 @@
     const form = document.querySelector('form');
     let todos = [];
     let users = [];
-
     //attach events
     document.addEventListener('DOMContentLoaded', initApp);
     form.addEventListener('submit', handleSubmit);
-
     //basic logic
     function getUserName(userId) {
         const user = users.find((user) => user.id === userId);
@@ -22,7 +20,6 @@
         li.innerHTML = `<span>${title} <i>by</i> <b>${getUserName(
             userId
         )}</b></span>`;
-
         const status = document.createElement('input');
         status.type = 'checkbox';
         status.checked = completed;
@@ -35,14 +32,12 @@
         li.append(close);
         todoList.prepend(li);
     }
-
     function createUserOption(user) {
         const option = document.createElement('option');
         option.value = user.id;
         option.innerText = user.name;
         userSelect.append(option);
     }
-
     function removeTodo(todoId) {
         todos = todos.filter((todo) => todo.id !== todoId);
         const todo = todoList.querySelector(`[data-id="${todoId}"]`);
@@ -53,11 +48,9 @@
         todo.querySelector('.close').removeEventListener('click', handleClose);
         todo.remove();
     }
-
     function alertError(error) {
         alert(error.message);
     }
-
     //Event logic
     function initApp() {
         Promise.all([getAllTodos(), getAllUsers()]).then((values) => {
@@ -68,7 +61,6 @@
             users.forEach((user) => createUserOption(user));
         });
     }
-
     function handleSubmit(event) {
         event.preventDefault();
         createTodo({
@@ -77,18 +69,15 @@
             completed: false,
         });
     }
-
     function handleTodoChange() {
         const todoId = this.parentElement.dataset.id;
         const completed = this.checked;
         toggleTodoComplete(todoId, completed);
     }
-
     function handleClose() {
         const todoId = this.parentElement.dataset.id;
         deleteTodo(todoId);
     }
-
     //async logic
     async function getAllTodos() {
         try {
@@ -112,7 +101,6 @@
             alertError(error);
         }
     }
-
     async function createTodo(todo) {
         try {
             const response = await fetch(
@@ -125,14 +113,12 @@
                     },
                 }
             );
-
             const newTodo = await response.json();
             printTodo(newTodo);
         } catch (error) {
             alertError(error);
         }
     }
-
     async function toggleTodoComplete(todoId, completed) {
         try {
             const response = await fetch(
@@ -152,7 +138,6 @@
             alertError(error);
         }
     }
-
     async function deleteTodo(todoId) {
         try {
             const response = await fetch(
